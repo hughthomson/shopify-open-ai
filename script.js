@@ -23,7 +23,7 @@ function getTextFromPrompt(userPrompt) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer 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`,
+            Authorization: `Bearer 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`,
         },
         body: JSON.stringify(data),
     }).then(response => response.json())
