@@ -6,6 +6,7 @@ let loader = document.getElementById("submissionLoader");
 let clearButton = document.getElementById("clearButton");
 let responses = [];
 
+// Turns submit button into loader and begins the response process
 submitButton.onclick = function () {
     console.log("Fetching response...")
     submitButton.style.display = "none";
@@ -75,14 +76,15 @@ function addResponseToList(userPrompt, openAiResponse) {
     clearButton.style.display = "block";
 }
 
+// Saves a response to local storage
 function saveResponse(responseObj) {
     responses.push(responseObj)
     localStorage.setItem("responses", JSON.stringify(responses))
     console.log(JSON.parse(localStorage.getItem("responses")))
 }
 
+// Onload it will check if the localstoage has any responses saved that it should load
 window.addEventListener('load', (event) => {
-    // clearPreviousResponses();
     try {
         let loadedResponses = JSON.parse(localStorage.getItem("responses"));
 
@@ -100,6 +102,7 @@ window.addEventListener('load', (event) => {
     }
 });
 
+// Clears all previous responses from local storage and the current session
 function clearPreviousResponses() {
     clearButton.style.display = "none";
     responsesContainer.innerHTML = "";
