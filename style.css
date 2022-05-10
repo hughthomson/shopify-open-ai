@@ -3,7 +3,47 @@ body {
 }
 
 .main-content {
-    width: 800px;
+    width: 600px;
     margin: auto;
+    text-align: left;
+}
+
+#promptInput {
+    width: 100%;
+    height: 300px;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+}
+
+#submitButton {
+    background-color: #35A7FF;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 30px;
     text-align: center;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#submitButton:hover {
+    background-color: #56b4fc;
+}
+
+.response {
+    background-color: #FBFBFB;
+    border-radius: 5px;
+    border: 1px solid #d5d5d5;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+}
+
+.response>h3 {
+    margin: 0;
+}
+
+.response>p {
+    margin-block-start: 0.2em;
 }
