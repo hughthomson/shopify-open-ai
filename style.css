@@ -1,0 +1,9 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.main-content {
+    width: 800px;
+    margin: auto;
+    text-align: center;
+}
