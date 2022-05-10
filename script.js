@@ -3,12 +3,18 @@ let submitButton = document.getElementById("submitButton");
 let promptInput = document.getElementById("promptInput");
 let responsesContainer = document.getElementsByClassName("responses-container")[0];
 let loader = document.getElementById("submissionLoader");
+let clearButton = document.getElementById("clearButton");
+let responses = [];
 
 submitButton.onclick = function () {
     console.log("Fetching response...")
     submitButton.style.display = "none";
     loader.style.display = "block";
     getTextFromPrompt(promptInput.value);
+}
+
+clearButton.onclick = function () {
+    clearPreviousResponses()
 }
 
 // Fetches a response from a prompt and calls addResponseToList when it gets a response 
@@ -26,7 +32,7 @@ function getTextFromPrompt(userPrompt) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer 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`,
+            Authorization: `Bearer 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`,
         },
         body: JSON.stringify(data),
     }).then(response => response.json())
@@ -35,6 +41,7 @@ function getTextFromPrompt(userPrompt) {
             submitButton.style.display = "block";
             loader.style.display = "none";
             addResponseToList(userPrompt, data.choices[0].text)
+            saveResponse({ prompt: userPrompt, response: data.choices[0].text })
         });
 }
 
@@ -65,4 +72,37 @@ function addResponseToList(userPrompt, openAiResponse) {
     responseDiv.appendChild(response);
 
     responsesContainer.prepend(responseDiv);
+    clearButton.style.display = "block";
+}
+
+function saveResponse(responseObj) {
+    responses.push(responseObj)
+    localStorage.setItem("responses", JSON.stringify(responses))
+    console.log(JSON.parse(localStorage.getItem("responses")))
+}
+
+window.addEventListener('load', (event) => {
+    // clearPreviousResponses();
+    try {
+        let loadedResponses = JSON.parse(localStorage.getItem("responses"));
+
+        for (let i = 0; i < loadedResponses.length; i++) {
+            addResponseToList(loadedResponses[i].prompt, loadedResponses[i].response)
+            responses.push(loadedResponses[i]);
+        }
+
+        clearButton.style.display = "block";
+        console.log('loaded previous responses');
+    }
+    catch (err) {
+        clearButton.style.display = "none";
+        console.log("No previous responses")
+    }
+});
+
+function clearPreviousResponses() {
+    clearButton.style.display = "none";
+    responsesContainer.innerHTML = "";
+    responses = [];
+    localStorage.setItem("responses", null)
 }

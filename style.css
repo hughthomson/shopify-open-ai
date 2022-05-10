@@ -44,8 +44,24 @@ body {
     padding: 10px;
 }
 
-.response>h3 {
+.responses-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.responses-header>h3 {
     margin: 0;
+}
+
+#clearButton {
+    display: none;
+    cursor: pointer;
+    color: #35A7FF;
+}
+
+#clearButton:hover {
+    color: #83c9ff;
 }
 
 .response>p {
