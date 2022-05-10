@@ -2,9 +2,12 @@
 let submitButton = document.getElementById("submitButton");
 let promptInput = document.getElementById("promptInput");
 let responsesContainer = document.getElementsByClassName("responses-container")[0];
+let loader = document.getElementById("submissionLoader");
 
 submitButton.onclick = function () {
     console.log("Fetching response...")
+    submitButton.style.display = "none";
+    loader.style.display = "block";
     getTextFromPrompt(promptInput.value);
 }
 
@@ -23,12 +26,14 @@ function getTextFromPrompt(userPrompt) {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer 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`,
+            Authorization: `Bearer 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`,
         },
         body: JSON.stringify(data),
     }).then(response => response.json())
         .then(data => {
             console.log(data);
+            submitButton.style.display = "block";
+            loader.style.display = "none";
             addResponseToList(userPrompt, data.choices[0].text)
         });
 }
